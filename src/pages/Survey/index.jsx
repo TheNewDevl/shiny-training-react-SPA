@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -63,13 +63,12 @@ function Survey() {
   const prevQuestionNumber = questionNumberInt === 1 ? 1 : questionNumberInt - 1
   const nextQuestionNumber = questionNumberInt + 1
   const { answers, saveAnswers } = useContext(SurveyContext)
-  const [error, setError] = useState(false)
 
   function saveReply(answer) {
     saveAnswers({ [questionNumber]: answer })
   }
 
-  const { data, isLoading } = useFetch(`http://localhost:8000/survey`)
+  const { data, isLoading, error } = useFetch(`http://localhost:8000/survey`)
   const { surveyData } = data
 
   if (error) {
@@ -102,7 +101,7 @@ function Survey() {
       </ReplyWrapper>
       <LinkWrapper>
         <Link to={`/survey/${prevQuestionNumber}`}>Précédent</Link>
-        {surveyData[questionNumberInt + 1] ? (
+        {surveyData && surveyData[questionNumberInt + 1] ? (
           <Link to={`/survey/${nextQuestionNumber}`}>Suivant</Link>
         ) : (
           <Link to="/results">Résultats</Link>

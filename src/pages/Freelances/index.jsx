@@ -1,8 +1,8 @@
 import Card from '../../components/Card'
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
-import { useEffect, useState } from 'react'
 import { Loader } from '../../utils/style/Atoms'
+import { useFetch } from '../../utils/hooks'
 
 const CardsContainer = styled.div`
   display: grid;
@@ -33,25 +33,10 @@ const LoaderWrapper = styled.div`
 `
 
 export default function Freelance() {
-  const [freelanceData, setFreelanceData] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
-
-  useEffect(() => {
-    async function fetchFreelance() {
-      setIsLoading(true)
-      try {
-        const response = await fetch(`http://localhost:8000/freelances`)
-        const { freelancersList } = await response.json()
-        setFreelanceData(freelancersList)
-      } catch (error) {
-        setError(error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    fetchFreelance()
-  }, [])
+  const { data, isLoading, error } = useFetch(
+    `http://localhost:8000/freelances`
+  )
+  const { freelancersList } = data
 
   if (error) {
     return <span>Oups il y a eu un problème</span>
@@ -69,7 +54,7 @@ export default function Freelance() {
         </LoaderWrapper>
       ) : (
         <CardsContainer>
-          {freelanceData.map((profile) => (
+          {freelancersList.map((profile) => (
             <Card
               key={profile.id}
               label={profile.job}
