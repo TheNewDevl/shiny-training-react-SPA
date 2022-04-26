@@ -2,7 +2,7 @@ import '../../style/home.css'
 import HomeIllustration from '../../assets/home-illustration.svg'
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
-import { StyledLink } from '../../utils/style/links'
+import { StyledLink } from '../../utils/style/Atoms'
 
 const HomeWrapper = styled.div`
   display: flex;
