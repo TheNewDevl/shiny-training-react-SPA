@@ -1,4 +1,3 @@
-import DefaultPicture from '../../assets/profile.png'
 import Card from '../../components/Card'
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
@@ -46,7 +45,7 @@ export default function Freelance() {
         const { freelancersList } = await response.json()
         setFreelanceData(freelancersList)
       } catch (error) {
-        console.log(error)
+        setError(error)
       } finally {
         setIsLoading(false)
       }
@@ -71,7 +70,12 @@ export default function Freelance() {
       ) : (
         <CardsContainer>
           {freelanceData.map((profile) => (
-            <Card key={profile.id} label={profile.job} title={profile.name} />
+            <Card
+              key={profile.id}
+              label={profile.job}
+              title={profile.name}
+              picture={profile.picture}
+            />
           ))}
         </CardsContainer>
       )}
