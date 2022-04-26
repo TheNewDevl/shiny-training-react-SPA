@@ -1,30 +1,22 @@
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import colors from '../../utils/style/colors'
 import darkLogo from '../../assets/dark-logo.png'
-
-/** CSS style for Link router components */
-const StyledLink = styled(Link)`
-  padding: 15px;
-  color: #8186a0;
-  text-decoration: none;
-  font-size: 18px;
-  ${(props) =>
-    props.$isFullLink &&
-    `color: white; border-radius: 30px; background-color: ${colors.primary};`}
-`
+import { StyledLink } from '../../utils/style/links.js'
 
 const HeaderStyle = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1em;
+  padding: 1em;
+`
+
+const Logo = styled.img`
+  height: 80px;
 `
 export default function Header() {
   return (
     <HeaderStyle>
       <div>
-        <img src={darkLogo} alt="Logo Shiny" />
+        <Logo src={darkLogo} alt="Logo Shiny" />
       </div>
       <nav>
         <StyledLink to="/">Accueil</StyledLink>
